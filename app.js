@@ -6,11 +6,25 @@ app.use(express.json());
 
 //Config Nodemailer
 const nodemailer = require("nodemailer");
+
+//Simple approach for sending email
+// const transport = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//       user: process.env.AUTH_EMAIL,
+//       pass: process.env.AUTH_PASS  
+//     }
+// });
+
+//Using google oauth
 const transport = nodemailer.createTransport({
     service: "gmail",
     auth: {
+      type: "OAuth2",
       user: process.env.AUTH_EMAIL,
-      pass: process.env.AUTH_PASS  
+      clientId: process.env.AUTH_CLIENT_ID,
+      clientSecret: process.env.AUTH_CLIENT_SECRET,
+      refreshToken: process.env.AUTH_REFRESH_TOKEN
     }
 });
 
@@ -39,7 +53,7 @@ app.post("/sendmail",(req,res) => {
         //successfully message
         res.status(200).json({
             status: "SUCCESS",
-            message: "Message send successfully"
+            message: "Message sent successfully"
         })
     })
     .catch((error) => {
@@ -47,9 +61,9 @@ app.post("/sendmail",(req,res) => {
         res.status(500).json({status: "FAILED",message: "An error occured!"});
     })
 
-})
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port,() => {
     console.log(`Sever started running successfully on ${port} `);
-})
+});
