@@ -15,8 +15,8 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "lodash": "^4.17.21",
-    "mongodb": "^4.9.0",
-    "mongoose": "^6.5.2",
+    "mongodb": "^4.17.0",
+    "mongoose": "^6.12.0",
     "nodemailer": "^6.7.8",
     "uuid": "^9.0.0"
   }
